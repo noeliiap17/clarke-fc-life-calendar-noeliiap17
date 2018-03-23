@@ -21,7 +21,8 @@ class Editor extends Component{
 						<h2>Mensaje</h2>
 							<input type="text" placeholder="¿Por qué es un buen día?"
 							onChange={this.props.onChangeMessage} />
-							<Link to='/'><input type="button" value="Guardar" /></Link> 
+							<Link to='/'><input type="button" value="Guardar"
+							onChange={this.props.onChangeUpdateDayInfo} /></Link> 
 							<Link to='/'><input type="button" value="Cancelar" /></Link>
 				</form>
 			</div>

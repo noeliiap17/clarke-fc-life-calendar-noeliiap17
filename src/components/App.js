@@ -49,6 +49,29 @@ class App extends Component {
     });
     console.log(valueAngry)
   }
+  updateDayInfo(){
+    const {message, date, arrayResult, checkedStateHappiness} = this.state;
+    const newDate = this.state.date;
+    const newMessage = this.state.message;
+    const newFace = (checkedStateHappiness) ? ':)' : ':(';
+    this.setState({
+      arrayResult: arrayResult.concat({newDate, newMessage, newFace})
+    });
+    console.log(arrayResult)
+  }
+  componentWillMount() { //si quieres borrar todo, pone removeItem en cambio de getItem a lado de localStorage
+   localStorage.getItem('arrayResult') && this.setState({
+     arrayResult: JSON.parse(localStorage.getItem('arrayResult'))
+   })
+ }
+  componentWillUpdate(nextProps, nextState) {
+
+    localStorage.setItem('arrayResult', JSON.stringify(nextState.arrayResult));
+  }
+  recoverDates() {
+    localStorage.getItem("fecha");
+  }
+
   render() {
     return (
       <div className="App">
@@ -60,7 +83,8 @@ class App extends Component {
               onChangeMessage={this.handleMessage}
               onChangeSmile={this.handleSmile}
               onChangeAngry={this.handleAngry}
-              /> 
+              onChangeUpdateDayInfo={this.updateDayInfo}
+              />
             }
             />
             <Route exact path='/' render={() =>
