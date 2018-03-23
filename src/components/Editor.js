@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
 
 class Editor extends Component{
 
@@ -21,7 +22,7 @@ class Editor extends Component{
 							<input type="text" placeholder="¿Por qué es un buen día?"
 							onChange={this.props.onChangeMessage} />
 							<input type="button" value="Guardar" />
-							<input type="button" value="Cancelar" />
+							<Link to='/'><input type="button" value="Cancelar" /></Link> 
 				</form>
 			</div>
 		);
