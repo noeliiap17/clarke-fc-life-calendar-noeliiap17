@@ -10,14 +10,14 @@ class App extends Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.handleSmile = this.handleSmile.bind(this);
-    this.handleAngry = this.handleAngry.bind(this);
+    this.handleSad = this.handleSad.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     this.state = {
       arrayResult: [], //para meter las 2 cadenas message y date
       arrayDays: [], // array con los dias
       message: '', //mensaje escrito en dia feliz
       date: '', //fecha seleccionada en el input
       checkedSmile: true,
-      checkedAngry: false
     };
   }
 
@@ -36,43 +36,49 @@ class App extends Component {
     console.log(valueMessage)
   }
   handleSmile(event) {
-    const valueSmile = document.querySelector('input[name="options"]:checked').value;
     this.setState({
-      checkedSmile: !valueSmile
+      checkedSmile: 'smile'
     });
-    console.log(valueSmile)
+    console.log(this.state.checkedSmile);
+    let missingMensage = document.querySelector('.container__message');
+    missingMensage.hidden = false;
   }
-  handleAngry(event) {
-    const valueAngry = event.target.value;
-    this.setState({
-      checkedAngry: !valueAngry
-    });
-    console.log(valueAngry)
-  }
-  updateDayInfo(){
-    const {message, date, arrayResult, checkedStateHappiness} = this.state;
-    const newDate = this.state.date;
-    const newMessage = this.state.message;
-    const newFace = (checkedStateHappiness) ? ':)' : ':(';
-    this.setState({
-      arrayResult: arrayResult.concat({newDate, newMessage, newFace})
-    });
-    console.log(arrayResult)
-  }
-  componentWillMount() { //si quieres borrar todo, pone removeItem en cambio de getItem a lado de localStorage
-   localStorage.getItem('arrayResult') && this.setState({
-     arrayResult: JSON.parse(localStorage.getItem('arrayResult'))
-   })
- }
-  componentWillUpdate(nextProps, nextState) {
 
-    localStorage.setItem('arrayResult', JSON.stringify(nextState.arrayResult));
-  }
-  recoverDates() {
-    localStorage.getItem("fecha");
-  }
+  handleSad(event) {
+     let missingMensage = document.querySelector('.container__message');
+     missingMensage.hidden = true;
+     this.setState({
+       checkedSmile: 'sad'
+     });
+     console.log(this.state.checkedSmile);
+   }
+
+
+  handleSave() {
+    const newDate = this.state.date;
+    let newMessage = this.state.message;
+    const newFace = this.state.checkedSmile;
+    if(newFace == "sad") {
+      newMessage = '';
+    }
+  const newDay = {
+     'date': newDate,
+     'message': newMessage,
+     'checkedSmile': newFace
+   }
+     let infoDays = JSON.parse(localStorage.getItem("myCalendar"));
+     if(infoDays == null)  infoDays = [];
+
+          localStorage.setItem("newDay",JSON.stringify(newDay));
+
+          infoDays.push(newDay);
+          localStorage.setItem("myCalendar",JSON.stringify(infoDays));
+
+   }
 
   render() {
+    let infoDays = JSON.parse(localStorage.getItem("myCalendar"));
+     if(infoDays == null)  infoDays = [];
     return (
       <div className="App">
         <main>
@@ -81,14 +87,17 @@ class App extends Component {
               <Editor
               onChangeCalendar={this.handleSelect}
               onChangeMessage={this.handleMessage}
-              onChangeSmile={this.handleSmile}
-              onChangeAngry={this.handleAngry}
-              onChangeUpdateDayInfo={this.updateDayInfo}
+              onChangeSmile={this.handleHappy}
+              onChangeSad={this.handleSad}
+              onChangeSave={this.handleSave}
+              infoCalendar={infoDays}
               />
             }
             />
             <Route exact path='/' render={() =>
-              <Calendar />}
+              <Calendar
+              infoCalendar={infoDays}
+              />}
             />
           </Switch>
         </main>

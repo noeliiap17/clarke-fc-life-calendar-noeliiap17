@@ -8,3 +8,79 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+/*Calendar*/
+.container__calendar{
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  height: 350px;
+  width:  350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.button__more {
+  height: 50px;
+  width: 350px;
+  border-radius: 10px;
+}
+.container__emotis {
+  height: 300px;
+  width: 350px;
+  background-color: orange;
+}
+
+.face--smile {
+  background-image: url("../images/alegria.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+}
+
+
+
+.face--sad {
+  background-image: url("../images/tristeza.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+}
+
+
+
+/*Editor*/
+.form_editor{
+  background-color: ;
+  position: absolute;
+  left: 80px;
+  top: 50px;
+  height: 400px;;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.container__editor--state {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.container__emoti{
+  padding: 0px;
+  list-style: none;
+
+}
+
+.container__message {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+input {
+  margin: 10px;
+}
+.face {
+  width: 100px;
+  height: 100px;
+}
